@@ -191,3 +191,45 @@ def big_shoe_rebounds
   end
   player_in_question[:rebounds]
 end
+
+def most_points_max_by
+  max_points = all_players.max_by do |player|
+    player[:points]
+  end
+  max_points[:player_name]
+end
+
+def winning_team
+  home_points = 0
+  away_points = 0
+  game_hash[:home][:players].each do |player|
+    home_points += player[:points]
+  end
+  game_hash[:away][:players].each do |player|
+    away_points += player[:points]
+  end
+  result = if home_points > away_points
+    "Home team wins!"
+  else
+    "Away team wins!"
+  end 
+  result
+end
+
+def player_with_longest_name
+  longest_name = all_players.max_by do |player|
+    player[:player_name].length
+  end
+  longest_name[:player_name]
+end
+
+def long_name_steals_a_ton?
+  longest_name_player = player_with_longest_name
+  longest_name_steals = player_stats(longest_name_player)[:steals]
+  most_steals_player = all_players.max_by do |player|
+    player[:steals]
+  end
+  most_steals = most_steals_player[:steals]
+  longest_name_steals == most_steals ? true: false
+end
+
